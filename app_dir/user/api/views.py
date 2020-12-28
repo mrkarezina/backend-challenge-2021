@@ -3,8 +3,11 @@ from rest_framework.generics import (
     RetrieveAPIView, DestroyAPIView
 )
 from django.db.models import Q
+from django.views.decorators.cache import cache_page
+from django.conf import settings
 from rest_framework import pagination
-from rest_framework.permissions import (IsAuthenticatedOrReadOnly, IsAuthenticated)
+from rest_framework.permissions import (
+    IsAuthenticatedOrReadOnly, IsAuthenticated)
 from .serializers import UserSerializer, User
 from ...core.pagination import PostLimitOffsetPagination
 
@@ -14,12 +17,14 @@ class UserListAPIView(ListAPIView):
     serializer_class = UserSerializer
     pagination_class = PostLimitOffsetPagination
 
+    # @method_decorator(cache_page(settings.CACHE_TTL))
     def get_queryset(self, *args, **kwargs):
         queryset_list = User.objects.all()
 
         page_size = 'page_size'
         if self.request.GET.get(page_size):
-            pagination.PageNumberPagination.page_size = self.request.GET.get(page_size)
+            pagination.PageNumberPagination.page_size = self.request.GET.get(
+                page_size)
         else:
             pagination.PageNumberPagination.page_size = 10
         query = self.request.GET.get('q')
