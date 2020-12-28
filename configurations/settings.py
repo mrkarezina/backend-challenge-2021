@@ -41,6 +41,7 @@ DEFAULT_APPS = (
 
 EXTERNAL_APPS = (
     'rest_framework',
+    'storages',
 )
 
 LOCAL_APPS = (
