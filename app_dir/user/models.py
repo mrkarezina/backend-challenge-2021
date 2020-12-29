@@ -1,14 +1,8 @@
 from django.db import models
-
-from app_dir.core.storage_backends import PublicMediaStorage, PrivateMediaStorage
-
-
-class Upload(models.Model):
-    uploaded_at = models.DateTimeField(auto_now_add=True)
-    file = models.FileField(storage=PublicMediaStorage())
+from django.contrib.auth.models import User
+from app_dir.images.models import UploadPrivate
 
 
-class UploadPrivate(models.Model):
-    uploaded_at = models.DateTimeField(auto_now_add=True)
-    file = models.FileField(storage=PrivateMediaStorage())
-
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    images = models.ManyToManyField(UploadPrivate)
