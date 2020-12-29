@@ -1,70 +1,69 @@
-## django-rest-framework-boilerplate
-Simple boilerplate for django & django rest framework.
+# Django Photo API
+Simple REST API for managing photos.
 
-[![Build Status](https://travis-ci.org/p8ul/stackoverflow-lite-client.svg?branch=develop)](https://travis-ci.org/p8ul/stackoverflow-lite-client)
-[![Coverage Status](https://coveralls.io/repos/github/p8ul/django-rest-framework-boilerplate/badge.svg?branch=master)](https://coveralls.io/github/p8ul/django-rest-framework-boilerplate?branch=master)
-[![Maintainability](https://api.codeclimate.com/v1/badges/e066442f75f4bc3f5269/maintainability)](https://codeclimate.com/github/p8ul/django-rest-framework-boilerplate/maintainability)
 
-### Tasks list
-- [x] Users api CRUD endpoints
-- [x] DRF JWT Authentication
-- [x] Add docker configurations
-- [ ] Document folder structure
-- [ ] Configure Static/media & templates
-- [ ] Integrate material ui & react js on templates
- 
-#### Jwt token endpoint
+
+## Installation
+
+Please update `docker-compose.yml` with AWS credentias for S3 file uploads.
+
+Run locally with Docker Compose:
+```
+docker-compose up
+```
+
+## Endpoints
+
+### Jwt token endpoint
 Method | Endpoint | Functionanlity
 --- | --- | ---
 POST | `/api-token-auth` | Request jwt token
 
-#### User Endpoints
+### User Endpoints
 
 Method | Endpoint | Functionality
 --- | --- | ---
 POST | `/api/user` | List users
 GET | `/api/user/create` | Creates a user
 GET | `/api/user/profile/{pk}` | Retrieve a user
-PUT | `/api/user/update/{pk}` | Edit a user
-DELETE | `/api/user/destroy/{pk}` | Delete a user
+POST | `/api/user/upload/{pk}` | Upload image to user 
 
 
-### Installation 
-If you wish to run your own build, you two options
- 1. Use Docker compose.
-    
-    `$ git clone https://github.com/p8ul/django-rest-framework-boilerplate`
-    
-    `$ cd django-rest-framework-boilerplate`    
-    `$ docker-compose up`
- 
- 2. Without docker
- 
-First ensure you have python globally installed in your computer. If not, you can get python [here](python.org).
 
-After doing this, confirm that you have installed virtualenv globally as well. If not, run this:
+## Helpful Commands
 
-    $ pip install virtualenv
-Then, Git clone this repo to your PC
+After updating the data model, make migrations and migrate.
+```
+python manage.py makemigrations && python manage.py migrate
+```
 
-    $ git clone https://github.com/p8ul/django-rest-framework-boilerplate
-    $ cd django-rest-framework-boilerplate
-Create a virtual environment
+Create super user
+```
+python manage.py createsuperuser
+```
 
-    $ virtualenv .venv && source .venv/bin/activate
-Install dependancies
+Run tests
+```
+python manage.py test
+```
 
-    $ pip install -r requirements.txt
-Make migrations & migrate
 
-    $ python manage.py makemigrations && python manage.py migrate
-Create Super user
-    
-    $ python manage.py createsuperuser
+## Technologies
+- Django
+    - [Django REST framework](https://www.django-rest-framework.org/)
+    - [Django Storages](https://github.com/jschneier/django-storages) for uploading to AWS S3
+    - **PostgreSQL** database
+- Amazon Web Services
+    - S3 for images
+    - Elastic Beanstalk for hosting
+- Docker
 
-### Launching the app
-    $ python manage.py runserver
 
-### Run Tests
-    $ python manage.py test
+## Resources
+
+This was my first time using Django. The following resources where helpful in making this api:
+
+- [Simple boilerplate for django rest framework](https://github.com/p8ul/django-rest-framework-boilerplate)
+- [How to Implement Token Authentication using Django REST Framework](https://simpleisbetterthancomplex.com/tutorial/2018/11/22/how-to-implement-token-authentication-using-django-rest-framework.html)
+- [Storing Django Static and Media Files on Amazon S3](https://testdriven.io/blog/storing-django-static-and-media-files-on-amazon-s3/)
 
