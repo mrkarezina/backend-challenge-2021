@@ -19,7 +19,6 @@ class UserListAPIView(ListAPIView):
     serializer_class = UserSerializer
     pagination_class = PostLimitOffsetPagination
 
-    # @method_decorator(cache_page(settings.CACHE_TTL))
     def get_queryset(self, *args, **kwargs):
         queryset_list = User.objects.all()
 

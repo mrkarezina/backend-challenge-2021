@@ -13,30 +13,31 @@ from app_dir.user.models import Profile
 def image_upload(request):
     if request.method == 'POST':
         user = request.user
+        profile, _ = Profile.objects.get_or_create(user=user)
         image_file = request.FILES['image_file']
         image_type = request.POST['image_type']
         if settings.USE_S3:
             if image_type == 'private':
                 upload = UploadPrivate(file=image_file)
+                upload.save()
+                profile.private_images.add(upload)
             else:
                 upload = Upload(file=image_file)
-            upload.save()
+                upload.save()
+                profile.public_images.add(upload)
             image_url = upload.file.url
-            profile, _ = Profile.objects.get_or_create(user=user)
-            profile.images.add(upload)
         else:
             fs = FileSystemStorage()
             filename = fs.save(image_file.name, image_file)
             image_url = fs.url(filename)
-        # TODO: Return link to S3 resource
-        return HttpResponse("Image uploaded")
+        return HttpResponse(f"Image uploaded: {image_url}")
 
 
 @api_view(['GET'])
-def image_list(request):
+def public_image_list(request):
     user = request.user
     profile = Profile.objects.get(id=user.pk)
-    queryset = profile.images.all()
+    queryset = profile.public_images.all()
     urls = [model.file.url for model in queryset]
     return JsonResponse({
         "images": urls
