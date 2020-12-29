@@ -1,6 +1,5 @@
 # Django Photo API
-Simple REST API for managing photos.
-
+Simple REST API for photo gallery app. Users can create an account and manage their photo collection.
 
 
 ## Installation
@@ -14,7 +13,9 @@ docker-compose up
 
 ## Endpoints
 
-### Jwt token endpoint
+[Postman collection](https://www.getpostman.com/collections/015d3c2d5c26e1708bc4)
+
+### JSON Web Token endpoint
 Method | Endpoint | Functionanlity
 --- | --- | ---
 POST | `/api-token-auth` | Request jwt token
@@ -23,12 +24,17 @@ POST | `/api-token-auth` | Request jwt token
 
 Method | Endpoint | Functionality
 --- | --- | ---
-POST | `/api/user` | List users
+GET | `/api/user` | List users
 GET | `/api/user/create` | Creates a user
 GET | `/api/user/profile/{pk}` | Retrieve a user
-POST | `/api/user/upload/{pk}` | Upload image to user 
+PUT | `/api/user/update/{pk}` | Edit a user
+DELETE | `/api/user/destroy/{pk}` | Delete a user
 
-
+### Image Endpoints
+Method | Endpoint | Functionality
+--- | --- | ---
+POST | `/api/user/images/upload` | Upload an image, image_type private or public.
+GET | `/api/user/images/public` | List of public image URLs
 
 ## Helpful Commands
 
@@ -52,7 +58,7 @@ python manage.py test
 - Django
     - [Django REST framework](https://www.django-rest-framework.org/)
     - [Django Storages](https://github.com/jschneier/django-storages) for uploading to AWS S3
-    - **PostgreSQL** database
+    - SQLite database
 - Amazon Web Services
     - S3 for images
     - Elastic Beanstalk for hosting
@@ -61,7 +67,7 @@ python manage.py test
 
 ## Resources
 
-This was my first time using Django. The following resources where helpful in making this api:
+This was my first time using Django. The following resources where helpful in making this API:
 
 - [Simple boilerplate for django rest framework](https://github.com/p8ul/django-rest-framework-boilerplate)
 - [How to Implement Token Authentication using Django REST Framework](https://simpleisbetterthancomplex.com/tutorial/2018/11/22/how-to-implement-token-authentication-using-django-rest-framework.html)
