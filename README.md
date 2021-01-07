@@ -1,5 +1,5 @@
 # Django Photo API
-Simple REST API for photo gallery app. Users can create an account and manage their photo collection.
+Simple REST API for a photo gallery app. Users can create an account and manage their photo collection.
 
 
 ## Installation
@@ -36,7 +36,7 @@ Method | Endpoint | Functionality
 POST | `/api/user/images/upload` | Upload an image, image_type private or public.
 GET | `/api/user/images/public` | List of public image URLs
 
-## Helpful Commands
+## Utility Commands
 
 After updating the data model, make migrations and migrate.
 ```
@@ -67,7 +67,7 @@ python manage.py test
 
 ## Resources
 
-This was my first time using Django. The following resources where helpful in making this API:
+The following resources where helpful in making this API:
 
 - [Simple boilerplate for django rest framework](https://github.com/p8ul/django-rest-framework-boilerplate)
 - [How to Implement Token Authentication using Django REST Framework](https://simpleisbetterthancomplex.com/tutorial/2018/11/22/how-to-implement-token-authentication-using-django-rest-framework.html)
